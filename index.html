@@ -1,85 +1,67 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Adda Sports Demo</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #101812;
-      color: white;
-      margin: 0;
-      padding: 24px;
-    }
-    header {
-      color: #65e995;
-      font-size: 28px;
-      font-weight: bold;
-    }
-    .match {
-      background: #1c2920;
-      padding: 18px;
-      margin: 16px 0;
-      border-radius: 10px;
-    }
-    button {
-      padding: 12px;
-      margin: 4px;
-      background: #304b38;
-      color: white;
-      border: 1px solid #65e995;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    button:focus, button:hover {
-      background: #267342;
-    }
-  </style>
-</head>
-<body>
-  <header>ADDA SPORTS</header>
-  <h2>Football matches</h2>
-  <p>Demo odds only — no real-money betting.</p>
+```html
+<!-- FOOTBALL LEAGUES AND SAMPLE MATCHES -->
+<section class="league">
+  <h2>🏆 English Premier League</h2>
 
   <div class="match">
-    <h3>Team A vs Team B</h3>
-    <button onclick="select('Home win', 2.1)">Home 2.10</button>
-    <button onclick="select('Draw', 3.2)">Draw 3.20</button>
-    <button onclick="select('Away win', 2.8)">Away 2.80</button>
+    <h3>Arsenal vs Chelsea</h3>
+    <p>Sample match · Demo odds</p>
+    <button onclick="select('Arsenal win', 1.85)">Home 1.85</button>
+    <button onclick="select('Draw', 3.40)">Draw 3.40</button>
+    <button onclick="select('Chelsea win', 4.20)">Away 4.20</button>
   </div>
 
   <div class="match">
-    <h3>Your demo bet slip</h3>
-    <p id="selection">Select an outcome above.</p>
-    <label>Stake:
-      <input id="stake" type="number" min="1" value="10">
-    </label>
-    <p id="return">Potential return: 0 credits</p>
+    <h3>Liverpool vs Manchester City</h3>
+    <p>Sample match · Demo odds</p>
+    <button onclick="select('Liverpool win', 2.50)">Home 2.50</button>
+    <button onclick="select('Draw', 3.30)">Draw 3.30</button>
+    <button onclick="select('Manchester City win', 2.60)">Away 2.60</button>
+  </div>
+</section>
+
+<section class="league">
+  <h2>🇪🇸 Spanish La Liga</h2>
+
+  <div class="match">
+    <h3>Real Madrid vs Barcelona</h3>
+    <p>Sample match · Demo odds</p>
+    <button onclick="select('Real Madrid win', 2.10)">Home 2.10</button>
+    <button onclick="select('Draw', 3.50)">Draw 3.50</button>
+    <button onclick="select('Barcelona win', 2.90)">Away 2.90</button>
   </div>
 
-  <script>
-    let odds = 0;
+  <div class="match">
+    <h3>Atletico Madrid vs Sevilla</h3>
+    <p>Sample match · Demo odds</p>
+    <button onclick="select('Atletico Madrid win', 1.95)">Home 1.95</button>
+    <button onclick="select('Draw', 3.20)">Draw 3.20</button>
+    <button onclick="select('Sevilla win', 3.80)">Away 3.80</button>
+  </div>
+</section>
 
-    function select(name, value) {
-      odds = value;
-      document.getElementById('selection').textContent =
-        name + ' @ ' + value.toFixed(2);
-      calculate();
-    }
+<section class="league">
+  <h2>🇮🇹 Italian Serie A</h2>
 
-    function calculate() {
-      const stake = Number(document.getElementById('stake').value);
-      const result = odds > 0 && stake > 0
-        ? (odds * stake).toFixed(2)
-        : '0.00';
+  <div class="match">
+    <h3>Inter Milan vs Juventus</h3>
+    <p>Sample match · Demo odds</p>
+    <button onclick="select('Inter Milan win', 2.00)">Home 2.00</button>
+    <button onclick="select('Draw', 3.10)">Draw 3.10</button>
+    <button onclick="select('Juventus win', 3.60)">Away 3.60</button>
+  </div>
+</section>
 
-      document.getElementById('return').textContent =
-        'Potential return: ' + result + ' demo credits';
-    }
+<section class="league">
+  <h2>🇩🇪 German Bundesliga</h2>
 
-    document.getElementById('stake').addEventListener('input', calculate);
-  </script>
-</body>
-</html>
+  <div class="match">
+    <h3>Bayern Munich vs Borussia Dortmund</h3>
+    <p>Sample match · Demo odds</p>
+    <button onclick="select('Bayern Munich win', 1.75)">Home 1.75</button>
+    <button onclick="select('Draw', 3.80)">Draw 3.80</button>
+    <button onclick="select('Borussia Dortmund win', 4.30)">Away 4.30</button>
+  </div>
+</section>
+```
