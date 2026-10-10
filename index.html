@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Adda Sports Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #101812;
+      color: white;
+      margin: 0;
+      padding: 24px;
+    }
+    header {
+      color: #65e995;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .match {
+      background: #1c2920;
+      padding: 18px;
+      margin: 16px 0;
+      border-radius: 10px;
+    }
+    button {
+      padding: 12px;
+      margin: 4px;
+      background: #304b38;
+      color: white;
+      border: 1px solid #65e995;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:focus, button:hover {
+      background: #267342;
+    }
+  </style>
+</head>
+<body>
+  <header>ADDA SPORTS</header>
+  <h2>Football matches</h2>
+  <p>Demo odds only — no real-money betting.</p>
+
+  <div class="match">
+    <h3>Team A vs Team B</h3>
+    <button onclick="select('Home win', 2.1)">Home 2.10</button>
+    <button onclick="select('Draw', 3.2)">Draw 3.20</button>
+    <button onclick="select('Away win', 2.8)">Away 2.80</button>
+  </div>
+
+  <div class="match">
+    <h3>Your demo bet slip</h3>
+    <p id="selection">Select an outcome above.</p>
+    <label>Stake:
+      <input id="stake" type="number" min="1" value="10">
+    </label>
+    <p id="return">Potential return: 0 credits</p>
+  </div>
+
+  <script>
+    let odds = 0;
+
+    function select(name, value) {
+      odds = value;
+      document.getElementById('selection').textContent =
+        name + ' @ ' + value.toFixed(2);
+      calculate();
+    }
+
+    function calculate() {
+      const stake = Number(document.getElementById('stake').value);
+      const result = odds > 0 && stake > 0
+        ? (odds * stake).toFixed(2)
+        : '0.00';
+
+      document.getElementById('return').textContent =
+        'Potential return: ' + result + ' demo credits';
+    }
+
+    document.getElementById('stake').addEventListener('input', calculate);
+  </script>
+</body>
+</html>
