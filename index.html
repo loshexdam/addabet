@@ -1,176 +1,251 @@
-
 ```html
-<!-- FOOTBALL LEAGUES AND SAMPLE MATCHES -->
-<section class="league">
-  <h2>🏆 English Premier League</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DA Sports - Demo Betting</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #101820;
+      color: white;
+    }
 
-  <div class="match">
-    <h3>Arsenal vs Chelsea</h3>
-    <p>Sample match · Demo odds</p>
-    <button onclick="select('Arsenal win', 1.85)">Home 1.85</button>
-    <button onclick="select('Draw', 3.40)">Draw 3.40</button>
-    <button onclick="select('Chelsea win', 4.20)">Away 4.20</button>
-  </div>
+    header {
+      background: #063b2c;
+      padding: 22px;
+      text-align: center;
+    }
 
-  <div class="match">
-    <h3>Liverpool vs Manchester City</h3>
-    <p>Sample match · Demo odds</p>
-    <button onclick="select('Liverpool win', 2.50)">Home 2.50</button>
-    <button onclick="select('Draw', 3.30)">Draw 3.30</button>
-    <button onclick="select('Manchester City win', 2.60)">Away 2.60</button>
-  </div>
-</section>
+    header h1 { color: #5cff9d; }
 
-<section class="league">
-  <h2>🇪🇸 Spanish La Liga</h2>
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 16px;
+    }
 
-  <div class="match">
-    <h3>Real Madrid vs Barcelona</h3>
-    <p>Sample match · Demo odds</p>
-    <button onclick="select('Real Madrid win', 2.10)">Home 2.10</button>
-    <button onclick="select('Draw', 3.50)">Draw 3.50</button>
-    <button onclick="select('Barcelona win', 2.90)">Away 2.90</button>
-  </div>
+    .league, #bet-slip {
+      background: #1c2935;
+      padding: 16px;
+      margin: 18px 0;
+      border-radius: 10px;
+    }
 
-  <div class="match">
-    <h3>Atletico Madrid vs Sevilla</h3>
-    <p>Sample match · Demo odds</p>
-    <button onclick="select('Atletico Madrid win', 1.95)">Home 1.95</button>
-    <button onclick="select('Draw', 3.20)">Draw 3.20</button>
-    <button onclick="select('Sevilla win', 3.80)">Away 3.80</button>
-  </div>
-</section>
+    h2 { color: #5cff9d; }
 
-<section class="league">
-  <h2>🇮🇹 Italian Serie A</h2>
+    .match {
+      background: #273746;
+      padding: 14px;
+      margin: 12px 0;
+      border-radius: 8px;
+    }
 
-  <div class="match">
-    <h3>Inter Milan vs Juventus</h3>
-    <p>Sample match · Demo odds</p>
-    <button onclick="select('Inter Milan win', 2.00)">Home 2.00</button>
-    <button onclick="select('Draw', 3.10)">Draw 3.10</button>
-    <button onclick="select('Juventus win', 3.60)">Away 3.60</button>
-  </div>
-</section>
+    .match p { color: #bdc9d3; }
 
-<section class="league">
-  <h2>🇩🇪 German Bundesliga</h2>
+    button {
+      background: #087f5b;
+      color: white;
+      border: 0;
+      padding: 12px;
+      margin: 4px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
 
-  <div class="match">
-    <h3>Bayern Munich vs Borussia Dortmund</h3>
-    <p>Sample match · Demo odds</p>
-    <button onclick="select('Bayern Munich win', 1.75)">Home 1.75</button>
-    <button onclick="select('Draw', 3.80)">Draw 3.80</button>
-    <button onclick="select('Borussia Dortmund win', 4.30)">Away 4.30</button>
-  </div>
-</section>
-````html
-<!-- BET SLIP -->
-<section class="league" id="bet-slip">
-  <h2>🎟️ My Bet Slip (Demo)</h2>
+    button:hover { background: #0ba875; }
 
-  <div id="selections">
-    <p>No selections yet. Click any odds above.</p>
-  </div>
+    button.selected { background: #d49a16; }
 
-  <p><strong>Total odds:</strong> <span id="totalOdds">0.00</span></p>
+    input {
+      padding: 10px;
+      width: 130px;
+      max-width: 90%;
+      border-radius: 5px;
+      border: 0;
+    }
 
-  <label for="stake">Stake (demo credits):</label>
-  <input
-    id="stake"
-    type="number"
-    min="1"
-    value="10"
-    oninput="calculateReturn()"
-  >
+    .remove { background: #a93226; }
 
-  <p>
-    <strong>Potential return:</strong>
-    <span id="potentialReturn">0.00</span> credits
-  </p>
+    #betMessage { color: #5cff9d; }
+  </style>
+</head>
 
-  <button onclick="placeDemoBet()">Place Demo Bet</button>
-  <p id="betMessage"></p>
-</section>
+<body>
+<header>
+  <h1>⚽ DA SPORTS</h1>
+  <p>Football · Demo Odds · Demo Bet Slip</p>
+</header>
+
+<main>
+  <div id="matches"></div>
+
+  <section id="bet-slip">
+    <h2>🎟️ My Bet Slip (Demo)</h2>
+    <div id="selections">No selections yet. Click any odds above.</div>
+
+    <p><b>Total odds:</b> <span id="totalOdds">0.00</span></p>
+
+    <label for="stake">Stake (demo credits):</label>
+    <input id="stake" type="number" min="1" value="10">
+
+    <p><b>Potential return:</b>
+      <span id="potentialReturn">0.00</span> credits
+    </p>
+
+    <button id="placeBet">Place Demo Bet</button>
+    <p id="betMessage"></p>
+  </section>
+</main>
 
 <script>
-  let bets = [];
+const matches = [
+  { league: "🏆 English Premier League", home: "Arsenal", away: "Chelsea", odds: [1.85, 3.40, 4.20] },
+  { league: "🏆 English Premier League", home: "Liverpool", away: "Manchester City", odds: [2.50, 3.30, 2.60] },
+  { league: "🇪🇸 Spanish La Liga", home: "Real Madrid", away: "Barcelona", odds: [2.10, 3.50, 2.90] },
+  { league: "🇪🇸 Spanish La Liga", home: "Atletico Madrid", away: "Sevilla", odds: [1.95, 3.20, 3.80] },
+  { league: "🇮🇹 Italian Serie A", home: "Inter Milan", away: "Juventus", odds: [2.00, 3.10, 3.60] },
+  { league: "🇩🇪 German Bundesliga", home: "Bayern Munich", away: "Borussia Dortmund", odds: [1.75, 3.80, 4.30] }
+];
 
-  function select(name, odds) {
-    const existing = bets.findIndex(
-      bet => bet.name === name && bet.odds === odds
-    );
+let bets = [];
 
-    if (existing !== -1) {
-      bets.splice(existing, 1);
-    } else {
-      bets.push({ name, odds });
+function renderMatches() {
+  const container = document.getElementById("matches");
+  let currentLeague = "";
+
+  matches.forEach((match, index) => {
+    if (match.league !== currentLeague) {
+      currentLeague = match.league;
+      const section = document.createElement("section");
+      section.className = "league";
+
+      const heading = document.createElement("h2");
+      heading.textContent = currentLeague;
+      section.appendChild(heading);
+      container.appendChild(section);
     }
 
-    renderBets();
+    const section = container.lastElementChild;
+    const card = document.createElement("div");
+    card.className = "match";
+
+    const title = document.createElement("h3");
+    title.textContent = match.home + " vs " + match.away;
+    card.appendChild(title);
+
+    const note = document.createElement("p");
+    note.textContent = "Sample match · Demo odds";
+    card.appendChild(note);
+
+    const labels = [
+      match.home + " win",
+      "Draw",
+      match.away + " win"
+    ];
+
+    ["Home", "Draw", "Away"].forEach((label, outcome) => {
+      const button = document.createElement("button");
+      button.textContent = label + " " + match.odds[outcome].toFixed(2);
+
+      button.addEventListener("click", () => {
+        const key = index + "-" + outcome;
+        const existing = bets.findIndex(bet => bet.key === key);
+
+        if (existing >= 0) {
+          bets.splice(existing, 1);
+        } else {
+          // Only one outcome per match is allowed.
+          bets = bets.filter(bet => bet.matchIndex !== index);
+          bets.push({
+            key,
+            matchIndex: index,
+            name: match.home + " vs " + match.away + " — " + labels[outcome],
+            odds: match.odds[outcome]
+          });
+        }
+
+        document.getElementById("betMessage").textContent = "";
+        renderMatches();
+        renderSlip();
+      });
+
+      if (bets.some(bet => bet.key === index + "-" + outcome)) {
+        button.classList.add("selected");
+      }
+
+      card.appendChild(button);
+    });
+
+    section.appendChild(card);
+  });
+}
+
+function renderSlip() {
+  const container = document.getElementById("selections");
+  container.replaceChildren();
+
+  if (bets.length === 0) {
+    container.textContent = "No selections yet. Click any odds above.";
   }
 
-  function renderBets() {
-    const container = document.getElementById("selections");
+  bets.forEach((bet, index) => {
+    const row = document.createElement("p");
+    row.textContent = bet.name + " — Odds " + bet.odds.toFixed(2) + " ";
 
-    if (bets.length === 0) {
-      container.innerHTML =
-        "<p>No selections yet. Click any odds above.</p>";
-    } else {
-      container.innerHTML = bets.map((bet, index) => `
-        <div style="padding:10px; border-bottom:1px solid #ccc">
-          <strong>${bet.name}</strong>
-          <span>Odds: ${bet.odds.toFixed(2)}</span>
-          <button onclick="removeBet(${index})">Remove</button>
-        </div>
-      `).join("");
-    }
+    const remove = document.createElement("button");
+    remove.textContent = "Remove";
+    remove.className = "remove";
+    remove.addEventListener("click", () => {
+      bets.splice(index, 1);
+      renderMatches();
+      renderSlip();
+    });
 
-    calculateReturn();
+    row.appendChild(remove);
+    container.appendChild(row);
+  });
+
+  const totalOdds = bets.reduce((total, bet) => total * bet.odds, 1);
+  const stake = Number(document.getElementById("stake").value);
+  const validStake = Number.isFinite(stake) && stake > 0;
+
+  document.getElementById("totalOdds").textContent =
+    bets.length ? totalOdds.toFixed(2) : "0.00";
+
+  document.getElementById("potentialReturn").textContent =
+    bets.length && validStake ? (stake * totalOdds).toFixed(2) : "0.00";
+}
+
+document.getElementById("stake").addEventListener("input", renderSlip);
+
+document.getElementById("placeBet").addEventListener("click", () => {
+  const message = document.getElementById("betMessage");
+  const stake = Number(document.getElementById("stake").value);
+
+  if (!bets.length) {
+    message.textContent = "Please select at least one match.";
+    return;
   }
 
-  function removeBet(index) {
-    bets.splice(index, 1);
-    renderBets();
+  if (!Number.isFinite(stake) || stake <= 0) {
+    message.textContent = "Enter a stake greater than zero.";
+    return;
   }
 
-  function calculateReturn() {
-    const stake = Number(document.getElementById("stake").value);
-    const totalOdds = bets.reduce(
-      (total, bet) => total * bet.odds, 1
-    );
+  message.textContent =
+    "Demo bet recorded. No real money was used.";
 
-    const validStake = Number.isFinite(stake) && stake > 0;
-    const validOdds = bets.length > 0;
+  bets = [];
+  renderMatches();
+  renderSlip();
+});
 
-    document.getElementById("totalOdds").textContent =
-      validOdds ? totalOdds.toFixed(2) : "0.00";
-
-    document.getElementById("potentialReturn").textContent =
-      validStake && validOdds
-        ? (stake * totalOdds).toFixed(2)
-        : "0.00";
-  }
-
-  function placeDemoBet() {
-    const stake = Number(document.getElementById("stake").value);
-    const message = document.getElementById("betMessage");
-
-    if (bets.length === 0) {
-      message.textContent = "Please select some odds first.";
-      return;
-    }
-
-    if (!Number.isFinite(stake) || stake <= 0) {
-      message.textContent = "Enter a stake greater than zero.";
-      return;
-    }
-
-    message.textContent =
-      "Demo bet recorded! This does not use real money.";
-
-    bets = [];
-    renderBets();
-  }
+renderMatches();
+renderSlip();
 </script>
-`````
+</body>
+</html>
+```
