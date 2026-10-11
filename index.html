@@ -1,251 +1,143 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DA Sports - Demo Betting</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #101820;
-      color: white;
-    }
-
-    header {
-      background: #063b2c;
-      padding: 22px;
-      text-align: center;
-    }
-
-    header h1 { color: #5cff9d; }
-
-    main {
-      max-width: 900px;
-      margin: auto;
-      padding: 16px;
-    }
-
-    .league, #bet-slip {
-      background: #1c2935;
-      padding: 16px;
-      margin: 18px 0;
-      border-radius: 10px;
-    }
-
-    h2 { color: #5cff9d; }
-
-    .match {
-      background: #273746;
-      padding: 14px;
-      margin: 12px 0;
-      border-radius: 8px;
-    }
-
-    .match p { color: #bdc9d3; }
-
-    button {
-      background: #087f5b;
-      color: white;
-      border: 0;
-      padding: 12px;
-      margin: 4px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    button:hover { background: #0ba875; }
-
-    button.selected { background: #d49a16; }
-
-    input {
-      padding: 10px;
-      width: 130px;
-      max-width: 90%;
-      border-radius: 5px;
-      border: 0;
-    }
-
-    .remove { background: #a93226; }
-
-    #betMessage { color: #5cff9d; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AddaBet — Sports & Casino Demo</title>
+<style>
+:root{--bg:#0b1020;--panel:#151d31;--panel2:#1c2740;--text:#f3f6ff;--muted:#a9b5cc;--green:#25d366;--gold:#ffc857;--line:#2b3854}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 Arial,Helvetica,sans-serif}header{background:#10182b;border-bottom:1px solid var(--line);padding:18px max(16px,calc((100% - 1100px)/2));display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;position:sticky;top:0;z-index:5}.brand{font-weight:900;font-size:25px;color:var(--green);letter-spacing:.3px}.brand span{color:#fff}.credits{background:#23324d;padding:8px 12px;border-radius:10px;color:var(--gold);font-weight:bold}nav{display:flex;gap:8px;flex-wrap:wrap}button,.tab{border:0;border-radius:9px;padding:10px 13px;font-weight:bold;cursor:pointer;background:#263552;color:#fff}button:hover,.tab:hover{filter:brightness(1.15)}.primary{background:var(--green);color:#062313}.active{background:var(--green);color:#062313}.wrap{max-width:1100px;margin:auto;padding:22px 16px 60px}.hero{padding:24px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(120deg,#162846,#172035);margin-bottom:20px}.hero h1{margin:0 0 8px;font-size:clamp(25px,4vw,38px)}.muted{color:var(--muted)}.layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;align-items:start}.section{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:18px}.section h2{margin:0 0 14px;font-size:21px}.match{padding:14px 0;border-top:1px solid var(--line)}.match:first-of-type{border-top:0}.teams{display:flex;justify-content:space-between;gap:12px;align-items:center;font-weight:bold}.league{font-size:13px;color:var(--muted);margin-bottom:7px}.odds{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.odd{background:var(--panel2);border:1px solid var(--line);padding:10px 6px;text-align:center;border-radius:8px;color:#fff}.odd small{display:block;color:var(--muted);font-weight:normal}.odd.selected{background:#27563d;border:2px solid var(--green);padding:9px 5px}.empty{color:var(--muted);padding:8px 0}.slip-row{background:var(--panel2);padding:10px;border-radius:9px;margin:10px 0}.slip-row .top{display:flex;justify-content:space-between;gap:8px}.remove{padding:2px 7px;background:#59303b}.field{width:100%;padding:11px;border-radius:8px;border:1px solid var(--line);background:#0c1426;color:#fff;margin:7px 0 12px}.full{width:100%}.return{font-size:20px;font-weight:bold;color:var(--gold)}.casino-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}.game{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:16px;text-align:center}.game .emoji{font-size:40px}.game h3{margin:6px 0}.game button{width:100%;margin-top:8px}.gamebox{background:#0b1427;border:1px solid var(--line);border-radius:12px;padding:20px;text-align:center;margin-top:14px}.reels{font-size:46px;letter-spacing:8px;margin:14px}.notice{font-size:13px;color:var(--muted);margin-top:12px}footer{text-align:center;color:var(--muted);padding:24px;font-size:13px}@media(max-width:780px){.layout{grid-template-columns:1fr}header{position:static}.slip-section{order:2}}
+</style>
 </head>
-
 <body>
 <header>
-  <h1>⚽ DA SPORTS</h1>
-  <p>Football · Demo Odds · Demo Bet Slip</p>
+  <div class="brand">Adda<span>Bet</span></div>
+  <nav><button class="tab active" data-tab="sports">⚽ Sports</button><button class="tab" data-tab="casino">🎰 Casino</button></nav>
+  <div class="credits">Demo credits: <span id="credits">1,000.00</span></div>
 </header>
-
-<main>
-  <div id="matches"></div>
-
-  <section id="bet-slip">
-    <h2>🎟️ My Bet Slip (Demo)</h2>
-    <div id="selections">No selections yet. Click any odds above.</div>
-
-    <p><b>Total odds:</b> <span id="totalOdds">0.00</span></p>
-
-    <label for="stake">Stake (demo credits):</label>
-    <input id="stake" type="number" min="1" value="10">
-
-    <p><b>Potential return:</b>
-      <span id="potentialReturn">0.00</span> credits
-    </p>
-
-    <button id="placeBet">Place Demo Bet</button>
-    <p id="betMessage"></p>
+<main class="wrap">
+  <section class="hero">
+    <h1>Sports & Casino Demo</h1>
+    <div class="muted">Try sample football odds, build a bet slip, and play mini casino games with virtual credits.</div>
+    <p class="notice">Demo only — no real-money betting, deposits, or withdrawals. Match odds are examples, not live odds.</p>
+  </section>
+  <section id="sportsView">
+    <div class="layout">
+      <div>
+        <section class="section">
+          <h2>🏆 English Premier League</h2>
+          <div id="matches"></div>
+        </section>
+        <section class="section">
+          <h2>🇪🇸 Spanish La Liga</h2>
+          <div id="spanishMatches"></div>
+        </section>
+        <section class="section">
+          <h2>🇮🇹 Italian Serie A</h2>
+          <div id="italianMatches"></div>
+        </section>
+        <section class="section">
+          <h2>🇩🇪 German Bundesliga</h2>
+          <div id="germanMatches"></div>
+        </section>
+        <section class="section">
+          <h2>🇫🇷 French Ligue 1</h2>
+          <div id="frenchMatches"></div>
+        </section>
+        <section class="section">
+          <h2>🏆 UEFA Champions League</h2>
+          <div id="championsMatches"></div>
+        </section>
+      </div>
+      <aside class="section slip-section">
+        <h2>🧾 Bet slip <span id="count" class="muted">(0)</span></h2>
+        <div id="slip"><div class="empty">Choose an odd from a match to add it here.</div></div>
+        <label for="stake">Stake (demo credits)</label>
+        <input id="stake" class="field" type="number" min="1" step="1" value="10">
+        <div>Combined odds: <strong id="combined">—</strong></div>
+        <div style="margin:8px 0">Potential return: <span id="potential" class="return">0.00</span></div>
+        <button id="placeBet" class="primary full">Place demo bet</button>
+        <button id="clearSlip" class="full" style="margin-top:8px">Clear slip</button>
+        <p id="betMessage" class="notice" aria-live="polite"></p>
+      </aside>
+    </div>
+    <section class="section">
+      <h2>How the demo works</h2>
+      <p class="muted">Select one outcome per match. Your stake is deducted from your virtual balance when you place a demo bet. This example does not connect to live sports data or settle bets automatically.</p>
+    </section>
+  </section>
+  <section id="casinoView" hidden>
+    <section class="section">
+      <h2>🎰 Demo casino</h2>
+      <p class="muted">Choose a mini-game. Every game uses virtual credits and is for demonstration only. Each round shows the result and credit change.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 16px">
+        <button id="resetCredits">Reset demo credits to 1,000</button>
+        <button id="showHistory">Show recent rounds</button>
+      </div>
+      <div id="historyPanel" class="notice" hidden></div>
+      <div class="casino-grid">
+        <div class="game"><div class="emoji">🎰</div><h3>Lucky Slots</h3><p class="muted">Three matching symbols: 5× payout. Two matching: 1.5× payout.</p><button class="primary" data-game="slots">Play slots</button></div>
+        <div class="game"><div class="emoji">🎲</div><h3>Dice Roll</h3><p class="muted">Choose high (4–6) or low (1–3). Correct guess: 1.8× payout.</p><button class="primary" data-game="dice">Play dice</button></div>
+        <div class="game"><div class="emoji">🃏</div><h3>Card Guess</h3><p class="muted">Guess red or black. Correct guess: 1.8× payout.</p><button class="primary" data-game="cards">Play cards</button></div>
+        <div class="game"><div class="emoji">🪙</div><h3>Coin Flip</h3><p class="muted">Guess heads or tails. Correct guess: 1.9× payout.</p><button class="primary" data-game="coin">Play coin flip</button></div>
+      </div>
+      <div class="gamebox" id="gamebox">
+        <h3 id="gameTitle">Welcome to the demo casino</h3>
+        <p class="muted" id="gameDescription">Choose a game above to begin.</p>
+        <div id="gameControls"></div>
+        <div id="gameResult" aria-live="polite"></div>
+      </div>
+    </section>
   </section>
 </main>
-
+<footer>AddaBet demo prototype · Virtual credits only · Not affiliated with any betting operator.</footer>
 <script>
-const matches = [
-  { league: "🏆 English Premier League", home: "Arsenal", away: "Chelsea", odds: [1.85, 3.40, 4.20] },
-  { league: "🏆 English Premier League", home: "Liverpool", away: "Manchester City", odds: [2.50, 3.30, 2.60] },
-  { league: "🇪🇸 Spanish La Liga", home: "Real Madrid", away: "Barcelona", odds: [2.10, 3.50, 2.90] },
-  { league: "🇪🇸 Spanish La Liga", home: "Atletico Madrid", away: "Sevilla", odds: [1.95, 3.20, 3.80] },
-  { league: "🇮🇹 Italian Serie A", home: "Inter Milan", away: "Juventus", odds: [2.00, 3.10, 3.60] },
-  { league: "🇩🇪 German Bundesliga", home: "Bayern Munich", away: "Borussia Dortmund", odds: [1.75, 3.80, 4.30] }
+const matchData=[
+ {id:"e1",league:"English Premier League · SAMPLE ODDS",home:"Arsenal",away:"Chelsea",odds:[1.85,3.40,4.20]},
+ {id:"e2",league:"English Premier League · SAMPLE ODDS",home:"Liverpool",away:"Manchester City",odds:[2.50,3.30,2.60]},
+ {id:"e3",league:"English Premier League · SAMPLE ODDS",home:"Tottenham",away:"Newcastle",odds:[2.25,3.20,2.90]},
+ {id:"e4",league:"English Premier League · SAMPLE ODDS",home:"Manchester United",away:"Aston Villa",odds:[2.05,3.45,3.35]},
+ {id:"e5",league:"English Premier League · SAMPLE ODDS",home:"Brighton",away:"West Ham",odds:[1.95,3.60,3.70]},
+ {id:"e6",league:"English Premier League · SAMPLE ODDS",home:"Everton",away:"Fulham",odds:[2.40,3.10,3.00]},
+ {id:"s1",league:"Spanish La Liga · SAMPLE ODDS",home:"Real Madrid",away:"Barcelona",odds:[2.10,3.50,2.80]},
+ {id:"s2",league:"Spanish La Liga · SAMPLE ODDS",home:"Atlético Madrid",away:"Sevilla",odds:[1.75,3.40,4.60]},
+ {id:"s3",league:"Spanish La Liga · SAMPLE ODDS",home:"Real Sociedad",away:"Valencia",odds:[1.95,3.25,3.90]},
+ {id:"i1",league:"Italian Serie A · SAMPLE ODDS",home:"Inter Milan",away:"AC Milan",odds:[2.15,3.20,3.10]},
+ {id:"i2",league:"Italian Serie A · SAMPLE ODDS",home:"Juventus",away:"Napoli",odds:[2.45,3.05,2.85]},
+ {id:"g1",league:"German Bundesliga · SAMPLE ODDS",home:"Bayern Munich",away:"Borussia Dortmund",odds:[1.80,3.90,3.80]},
+ {id:"g2",league:"German Bundesliga · SAMPLE ODDS",home:"RB Leipzig",away:"Bayer Leverkusen",odds:[2.55,3.50,2.45]},
+ {id:"f1",league:"French Ligue 1 · SAMPLE ODDS",home:"Paris Saint-Germain",away:"Marseille",odds:[1.65,4.00,4.70]},
+ {id:"c1",league:"UEFA Champions League · SAMPLE ODDS",home:"Benfica",away:"Ajax",odds:[1.95,3.55,3.55]},
+ {id:"c2",league:"UEFA Champions League · SAMPLE ODDS",home:"Porto",away:"Celtic",odds:[1.85,3.45,4.10]}
 ];
-
-let bets = [];
-
-function renderMatches() {
-  const container = document.getElementById("matches");
-  let currentLeague = "";
-
-  matches.forEach((match, index) => {
-    if (match.league !== currentLeague) {
-      currentLeague = match.league;
-      const section = document.createElement("section");
-      section.className = "league";
-
-      const heading = document.createElement("h2");
-      heading.textContent = currentLeague;
-      section.appendChild(heading);
-      container.appendChild(section);
-    }
-
-    const section = container.lastElementChild;
-    const card = document.createElement("div");
-    card.className = "match";
-
-    const title = document.createElement("h3");
-    title.textContent = match.home + " vs " + match.away;
-    card.appendChild(title);
-
-    const note = document.createElement("p");
-    note.textContent = "Sample match · Demo odds";
-    card.appendChild(note);
-
-    const labels = [
-      match.home + " win",
-      "Draw",
-      match.away + " win"
-    ];
-
-    ["Home", "Draw", "Away"].forEach((label, outcome) => {
-      const button = document.createElement("button");
-      button.textContent = label + " " + match.odds[outcome].toFixed(2);
-
-      button.addEventListener("click", () => {
-        const key = index + "-" + outcome;
-        const existing = bets.findIndex(bet => bet.key === key);
-
-        if (existing >= 0) {
-          bets.splice(existing, 1);
-        } else {
-          // Only one outcome per match is allowed.
-          bets = bets.filter(bet => bet.matchIndex !== index);
-          bets.push({
-            key,
-            matchIndex: index,
-            name: match.home + " vs " + match.away + " — " + labels[outcome],
-            odds: match.odds[outcome]
-          });
-        }
-
-        document.getElementById("betMessage").textContent = "";
-        renderMatches();
-        renderSlip();
-      });
-
-      if (bets.some(bet => bet.key === index + "-" + outcome)) {
-        button.classList.add("selected");
-      }
-
-      card.appendChild(button);
-    });
-
-    section.appendChild(card);
-  });
+const outcomes=["Home","Draw","Away"];
+let slip=[],balance=1000,activeGame="",roundHistory=[];const $=id=>document.getElementById(id);
+function logRound(game,stake,net,message){roundHistory.unshift({game,stake,net,message,when:new Date().toLocaleTimeString()});roundHistory=roundHistory.slice(0,10)}
+function showHistory(){const p=$("historyPanel");p.hidden=!p.hidden;if(!p.hidden){p.innerHTML=roundHistory.length?roundHistory.map(r=>`<div style="padding:6px 0;border-bottom:1px solid var(--line)"><strong>${r.game}</strong> · ${r.when} · Bet ${money(r.stake)} · <span style="color:${r.net>=0?'var(--green)':'#ff9292'}">${r.net>=0?'+':''}${money(r.net)}</span><div>${r.message}</div></div>`).join(""):"No rounds played yet."}}
+function money(n){return Number(n).toFixed(2)}
+function renderMatches(data,target){$(target).innerHTML=data.map(m=>`<div class="match"><div class="league">${m.league}</div><div class="teams"><span>${m.home}</span><span class="muted">vs</span><span>${m.away}</span></div><div class="odds">${m.odds.map((o,i)=>{let chosen=slip.some(s=>s.id===m.id&&s.outcome===outcomes[i]);return `<button class="odd ${chosen?'selected':''}" data-match="${m.id}" data-outcome="${outcomes[i]}" data-odd="${o}"><small>${outcomes[i]}</small>${o.toFixed(2)}</button>`}).join("")}</div></div>`).join("")}
+function renderAllMatches(){
+ renderMatches(matchData.filter(m=>m.league.startsWith("English Premier")), "matches");
+ renderMatches(matchData.filter(m=>m.league.startsWith("Spanish")), "spanishMatches");
+ renderMatches(matchData.filter(m=>m.league.startsWith("Italian")), "italianMatches");
+ renderMatches(matchData.filter(m=>m.league.startsWith("German")), "germanMatches");
+ renderMatches(matchData.filter(m=>m.league.startsWith("French")), "frenchMatches");
+ renderMatches(matchData.filter(m=>m.league.startsWith("UEFA")), "championsMatches");
 }
-
-function renderSlip() {
-  const container = document.getElementById("selections");
-  container.replaceChildren();
-
-  if (bets.length === 0) {
-    container.textContent = "No selections yet. Click any odds above.";
-  }
-
-  bets.forEach((bet, index) => {
-    const row = document.createElement("p");
-    row.textContent = bet.name + " — Odds " + bet.odds.toFixed(2) + " ";
-
-    const remove = document.createElement("button");
-    remove.textContent = "Remove";
-    remove.className = "remove";
-    remove.addEventListener("click", () => {
-      bets.splice(index, 1);
-      renderMatches();
-      renderSlip();
-    });
-
-    row.appendChild(remove);
-    container.appendChild(row);
-  });
-
-  const totalOdds = bets.reduce((total, bet) => total * bet.odds, 1);
-  const stake = Number(document.getElementById("stake").value);
-  const validStake = Number.isFinite(stake) && stake > 0;
-
-  document.getElementById("totalOdds").textContent =
-    bets.length ? totalOdds.toFixed(2) : "0.00";
-
-  document.getElementById("potentialReturn").textContent =
-    bets.length && validStake ? (stake * totalOdds).toFixed(2) : "0.00";
-}
-
-document.getElementById("stake").addEventListener("input", renderSlip);
-
-document.getElementById("placeBet").addEventListener("click", () => {
-  const message = document.getElementById("betMessage");
-  const stake = Number(document.getElementById("stake").value);
-
-  if (!bets.length) {
-    message.textContent = "Please select at least one match.";
-    return;
-  }
-
-  if (!Number.isFinite(stake) || stake <= 0) {
-    message.textContent = "Enter a stake greater than zero.";
-    return;
-  }
-
-  message.textContent =
-    "Demo bet recorded. No real money was used.";
-
-  bets = [];
-  renderMatches();
-  renderSlip();
-});
-
-renderMatches();
-renderSlip();
+function calcReturn(){let stake=Number($("stake").value);let combined=slip.reduce((p,s)=>p*s.odd,1);$("combined").textContent=slip.length?combined.toFixed(2):"—";$("potential").textContent=slip.length&&stake>0?money(stake*combined):"0.00"}
+function renderSlip(){$("count").textContent=`(${slip.length})`;if(!slip.length){$("slip").innerHTML='<div class="empty">Choose an odd from a match to add it here.</div>'}else{$("slip").innerHTML=slip.map(s=>`<div class="slip-row"><div class="top"><strong>${s.home} vs ${s.away}</strong><button class="remove" data-remove="${s.id}" aria-label="Remove ${s.home} selection">×</button></div><div class="muted">${s.outcome} · odds ${s.odd.toFixed(2)}</div></div>`).join("")}calcReturn();renderAllMatches()}
+function updateBalance(){$("credits").textContent=money(balance)}
+document.addEventListener("click",e=>{const odd=e.target.closest("[data-match]");if(odd){const m=matchData.find(x=>x.id===odd.dataset.match),outcome=odd.dataset.outcome;const existing=slip.findIndex(s=>s.id===m.id);if(existing>=0&&slip[existing].outcome===outcome){slip.splice(existing,1)}else{if(existing>=0)slip.splice(existing,1);slip.push({id:m.id,home:m.home,away:m.away,outcome,odd:Number(odd.dataset.odd)})} $("betMessage").textContent="";renderSlip();return}const rem=e.target.closest("[data-remove]");if(rem){slip=slip.filter(s=>s.id!==rem.dataset.remove);renderSlip();return}const tab=e.target.closest("[data-tab]");if(tab){document.querySelectorAll("[data-tab]").forEach(b=>b.classList.toggle("active",b===tab));$("sportsView").hidden=tab.dataset.tab!=="sports";$("casinoView").hidden=tab.dataset.tab!=="casino";return}const game=e.target.closest("[data-game]");if(game){startGame(game.dataset.game)}});
+$("stake").addEventListener("input",calcReturn);
+$("clearSlip").addEventListener("click",()=>{slip=[];renderSlip();$("betMessage").textContent="Bet slip cleared."});
+$("resetCredits").addEventListener("click",()=>{balance=1000;updateBalance();$("gameResult").textContent="Demo balance reset to 1,000 credits.";});
+$("showHistory").addEventListener("click",showHistory);
+$("placeBet").addEventListener("click",()=>{const stake=Number($("stake").value);if(!slip.length){$("betMessage").textContent="Add at least one selection first.";return}if(!Number.isFinite(stake)||stake<=0){$("betMessage").textContent="Enter a stake greater than zero.";return}if(stake>balance){$("betMessage").textContent="Not enough demo credits.";return}const ret=stake*slip.reduce((p,s)=>p*s.odd,1);balance-=stake;updateBalance();$("betMessage").textContent=`Demo bet placed. ${money(stake)} credits deducted. Potential return: ${money(ret)} credits. This demo does not settle bets.`;slip=[];renderSlip()});
+function startGame(game){activeGame=game;$("gameResult").textContent="";let title,desc,controls;if(game==="slots"){title="🎰 Lucky Slots";desc="Enter a bet and spin. Three matching symbols award 5× your bet; two matching symbols award 1.5×." ;controls='<label for="slotStake">Bet (credits)</label><input id="slotStake" class="field" type="number" min="1" max="100" value="10"><button id="spin" class="primary">Spin reels</button>'}else if(game==="dice"){title="🎲 Dice Roll";desc="Bet on whether the dice result is High (4–6) or Low (1–3). A correct guess returns 1.8× your bet including stake.";controls='<label for="diceStake">Bet (credits)</label><input id="diceStake" class="field" type="number" min="1" max="100" value="10"><div style="display:flex;gap:8px;justify-content:center"><button data-guess="Low">Guess low</button><button class="primary" data-guess="High">Guess high</button></div>' }else if(game==="cards"){title="🃏 Card Guess";desc="Guess the color of the card. A correct guess returns 1.8× your bet including stake.";controls='<label for="cardStake">Bet (credits)</label><input id="cardStake" class="field" type="number" min="1" max="100" value="10"><div style="display:flex;gap:8px;justify-content:center"><button data-guess="Red">Guess red ♥</button><button class="primary" data-guess="Black">Guess black ♠</button></div>'}
+ else{title="🪙 Coin Flip";desc="Guess heads or tails. A correct guess returns 1.9× your bet including stake.";controls='<label for="coinStake">Bet (credits)</label><input id="coinStake" class="field" type="number" min="1" max="100" value="10"><div style="display:flex;gap:8px;justify-content:center"><button data-guess="Heads">Guess heads</button><button class="primary" data-guess="Tails">Guess tails</button></div>'}$("gameTitle").textContent=title;$("gameDescription").textContent=desc;$("gameControls").innerHTML=controls}
+function playRound(stake,fn){if(!Number.isFinite(stake)||stake<1||stake>100){$("gameResult").textContent="Enter a bet from 1 to 100 credits.";return}if(stake>balance){$("gameResult").textContent="Not enough demo credits.";return}const before=balance;balance-=stake;let result=fn(stake);updateBalance();const net=balance-before;logRound(activeGame,stake,net,result);$("gameResult").textContent=result+` | Net: ${net>=0?"+":""}${money(net)} credits.`;if(!$("historyPanel").hidden){$("historyPanel").hidden=true;showHistory();}}
+document.addEventListener("click",e=>{if(e.target.id==="spin"){playRound(Number($("slotStake").value),stake=>{const symbols=["🍒","🍋","🔔","⭐","🍇"];const r=Array.from({length:3},()=>symbols[Math.floor(Math.random()*symbols.length)]);const triples=r[0]===r[1]&&r[1]===r[2],pairs=!triples&&(r[0]===r[1]||r[1]===r[2]||r[0]===r[2]);const win=triples?stake*5:pairs?stake*1.5:0;balance+=win;updateBalance();return `${r.join("   ")} — ${win?`You won ${money(win)} credits!`:"No win this time."}`})}const guess=e.target.closest("[data-guess]");if(guess&&activeGame){const g=guess.dataset.guess;if(activeGame==="dice"){playRound(Number($("diceStake").value),stake=>{const n=1+Math.floor(Math.random()*6),won=(n>=4?"High":"Low")===g,win=won?stake*1.8:0;balance+=win;updateBalance();return `Dice: ${n}. ${won?"Correct!":"Not this time."} ${win?"Return: "+money(win)+" credits.":"No return."}`})}else if(activeGame==="cards"){playRound(Number($("cardStake").value),stake=>{const color=Math.random()<.5?"Red":"Black",won=color===g,win=won?stake*1.8:0;balance+=win;updateBalance();return `Card color: ${color}. ${won?"Correct!":"Not this time."} ${win?"Return: "+money(win)+" credits.":"No return."}`})}else if(activeGame==="coin"){playRound(Number($("coinStake").value),stake=>{const side=Math.random()<.5?"Heads":"Tails",won=side===g,win=won?stake*1.9:0;balance+=win;updateBalance();return `Coin: ${side}. ${won?"Correct!":"Not this time."} ${win?"Return: "+money(win)+" credits.":"No return."}`})}}});
+renderAllMatches();renderSlip();updateBalance();
 </script>
 </body>
 </html>
-```
