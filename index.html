@@ -64,4 +64,113 @@
     <button onclick="select('Borussia Dortmund win', 4.30)">Away 4.30</button>
   </div>
 </section>
-```
+````html
+<!-- BET SLIP -->
+<section class="league" id="bet-slip">
+  <h2>🎟️ My Bet Slip (Demo)</h2>
+
+  <div id="selections">
+    <p>No selections yet. Click any odds above.</p>
+  </div>
+
+  <p><strong>Total odds:</strong> <span id="totalOdds">0.00</span></p>
+
+  <label for="stake">Stake (demo credits):</label>
+  <input
+    id="stake"
+    type="number"
+    min="1"
+    value="10"
+    oninput="calculateReturn()"
+  >
+
+  <p>
+    <strong>Potential return:</strong>
+    <span id="potentialReturn">0.00</span> credits
+  </p>
+
+  <button onclick="placeDemoBet()">Place Demo Bet</button>
+  <p id="betMessage"></p>
+</section>
+
+<script>
+  let bets = [];
+
+  function select(name, odds) {
+    const existing = bets.findIndex(
+      bet => bet.name === name && bet.odds === odds
+    );
+
+    if (existing !== -1) {
+      bets.splice(existing, 1);
+    } else {
+      bets.push({ name, odds });
+    }
+
+    renderBets();
+  }
+
+  function renderBets() {
+    const container = document.getElementById("selections");
+
+    if (bets.length === 0) {
+      container.innerHTML =
+        "<p>No selections yet. Click any odds above.</p>";
+    } else {
+      container.innerHTML = bets.map((bet, index) => `
+        <div style="padding:10px; border-bottom:1px solid #ccc">
+          <strong>${bet.name}</strong>
+          <span>Odds: ${bet.odds.toFixed(2)}</span>
+          <button onclick="removeBet(${index})">Remove</button>
+        </div>
+      `).join("");
+    }
+
+    calculateReturn();
+  }
+
+  function removeBet(index) {
+    bets.splice(index, 1);
+    renderBets();
+  }
+
+  function calculateReturn() {
+    const stake = Number(document.getElementById("stake").value);
+    const totalOdds = bets.reduce(
+      (total, bet) => total * bet.odds, 1
+    );
+
+    const validStake = Number.isFinite(stake) && stake > 0;
+    const validOdds = bets.length > 0;
+
+    document.getElementById("totalOdds").textContent =
+      validOdds ? totalOdds.toFixed(2) : "0.00";
+
+    document.getElementById("potentialReturn").textContent =
+      validStake && validOdds
+        ? (stake * totalOdds).toFixed(2)
+        : "0.00";
+  }
+
+  function placeDemoBet() {
+    const stake = Number(document.getElementById("stake").value);
+    const message = document.getElementById("betMessage");
+
+    if (bets.length === 0) {
+      message.textContent = "Please select some odds first.";
+      return;
+    }
+
+    if (!Number.isFinite(stake) || stake <= 0) {
+      message.textContent = "Enter a stake greater than zero.";
+      return;
+    }
+
+    message.textContent =
+      "Demo bet recorded! This does not use real money.";
+
+    bets = [];
+    renderBets();
+  }
+</script>
+`````
